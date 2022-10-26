@@ -209,10 +209,22 @@ class WebServer {
           Integer result = num1 * num2;
 
           // Generate response
-          builder.append("HTTP/1.1 200 OK\n");
-          builder.append("Content-Type: text/html; charset=utf-8\n");
-          builder.append("\n");
-          builder.append("Result is: " + result);
+          if(num1 == null) {
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("Num1 does not contain a valid integer. Query syntax: /multiply?num1=#&num2=#");
+          } else if(num2 == null) {
+            builder.append("HTTP/1.1 400 Bad Request\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("Num2 does not contain a valid integer. Query syntax: /multiply?num1=#&num2=#");
+          } else {
+            builder.append("HTTP/1.1 200 OK\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("Result is: " + result);
+          }
 
           // TODO: Include error handling here with a correct error code and
           // a response that makes sense
